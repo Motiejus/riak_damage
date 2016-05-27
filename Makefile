@@ -1,6 +1,6 @@
-all: .vagrant riak-2.1.4.rel.tar.gz
+all: .vagrant_up
 
-.vagrant_:
+.vagrant_up: riak-2.1.4.rel.tar.gz
 	vagrant up --provider=virtualbox
 	touch $@
 
