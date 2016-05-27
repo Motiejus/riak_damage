@@ -36,5 +36,6 @@ Vagrant.configure(2) do |config|
   SHELL
   config.vm.provision :shell, :path => "netns", :args => "1"
   config.vm.provision :shell, :path => "netns", :args => "2"
+  config.vm.provision :shell, :path => "netns", :args => "3"
 
 end

@@ -10,7 +10,6 @@ ip link add veth${1}a type veth peer name veth${1}b
 ip link set veth${1}a up
 ip link set veth${1}b netns netns${1}
 
-#ip netns exec netns${1} ifconfig veth${1}b 10.1.1.${1}0/24 up
 ip netns exec netns${1} ip addr add 10.99.88.${1}/24 dev veth${1}b
 ip netns exec netns${1} ip link set veth${1}b up
 
