@@ -21,6 +21,7 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
+    apt-get update && apt-get install vim bridge-utils
     tar -xzf /vagrant/riak-2.1.4-jessie-17.5.tar.gz
     chown -R vagrant riak
     sed -e '/^riak_control/ s/off/on' \
