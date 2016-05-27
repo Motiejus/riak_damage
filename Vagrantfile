@@ -21,11 +21,20 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    apt-get update && apt-get install vim bridge-utils
+    apt-get update && apt-get install -y vim bridge-utils tcpdump
     tar -xzf /vagrant/riak-2.1.4-jessie-17.5.tar.gz
     chown -R vagrant riak
-    sed -e '/^riak_control/ s/off/on' \
+    sed -e '/^riak_control/ s/off/on/' \
         -e '/^listener.http.internal/ s/127.0.0.1/0.0.0.0/' \
         -i riak/etc/riak.conf
+    SHELL
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo brctl addbr br0
+    sudo ip addr add 10.99.88.254/24 dev br0
+    sudo ip link set br0 up
   SHELL
+  config.vm.provision :shell, :path => "netns", :args => "1"
+  config.vm.provision :shell, :path => "netns", :args => "2"
+
 end
