@@ -10,7 +10,7 @@ Vagrant.configure(2) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -23,5 +23,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     tar -xzf /vagrant/riak-2.1.4-jessie-17.5.tar.gz
     chown -R vagrant riak
+    sed -e '/^riak_control/ s/off/on' \
+        -e '/^listener.http.internal/ s/127.0.0.1/0.0.0.0/' \
+        -i riak/etc/riak.conf
   SHELL
 end
