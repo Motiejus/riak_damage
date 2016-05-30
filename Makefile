@@ -16,7 +16,7 @@ $(REL):
 	docker run -ti --rm -v `pwd`:/x riak_release
 
 bench: basho_bench/basho_bench
-	vagrant ssh -c "nohup /vagrant/firewall 120s 120s &"
+	vagrant ssh -c "tmux new -d -s firewall 'sudo /vagrant/firewall 10 10'"
 	$(BENCH) $(BENCH_CONFIG)
 	$(MAKE) $(MAKEFLAGS) -C basho_bench results
 	@echo "Results generated. open basho_bench/tests/current/summary.png"
@@ -28,5 +28,3 @@ basho_bench:
 	git clone git://github.com/basho/basho_bench.git
 	rm -fr basho_bench/tests
 	ln -s ../tests basho_bench
-
-.PHONY: basho_bench

@@ -13,7 +13,8 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "192.168.33.10"
 
   config.vm.provision "shell", inline: <<-SHELL
-    apt-get update && apt-get install -y vim bridge-utils tcpdump socat htop
+    apt-get update
+    apt-get install -y vim bridge-utils tcpdump socat htop tmux
     tar -xzf /vagrant/riak-2.1.4-jessie-17.5.tar.gz
     chown -R vagrant riak
     sed -e '/^riak_control = / s/off/on/' \
