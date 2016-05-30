@@ -1,0 +1,23 @@
+#!/bin/bash
+set -euo pipefail
+
+# Blocks all incoming and outgoing traffic from $1 seconds for $2 seconds
+
+DROPCMD=$(cat <<EOF
+*filter
+-A INPUT -j DROP
+-A OUTPUT -j DROP
+COMMIT
+EOF
+)
+
+ALLOWCMD=$(cat <<EOF
+*filter
+COMMIT
+)
+
+set -x
+sleep ${1}s &&
+    echo "${DROPCMD}" | iptables-restore &&
+sleep ${2}s &&
+    echo "${ALLOWCMD}" | iptables-restore

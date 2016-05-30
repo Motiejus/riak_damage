@@ -18,8 +18,8 @@ Plan for a 3-node cluster benchmark:
 
 Results TBD.
 
-How to
-------
+Setting up the cluster
+----------------------
 
 To create Vagrant VM with 3 Riak instances running, do the following
 (pre-configured Vagrant and Docker are required)::
@@ -43,8 +43,19 @@ the following output::
 Now, you have riak-control running on `localhost:8098
 <http://127.0.0.1:8098/admin>`, and ``riak-pb`` exposed on ``localhost:8087``.
 
+Testing
+-------
+
+Once you know the cluster works (by visiting the `admin interface
+<http://127.0.0.1:8098>`), run the test (Erlang 16+ is required locally)::
+
+    make bench
+
+You will be prompted to check out the results. If you have problems generating
+the results, check out `documentation of basho_bench
+<https://docs.basho.com/riak/kv/2.1.4/using/performance/benchmarking/>`_.
+
 Next Steps
 ----------
 
-1. Run basho_bench successfully and produce meaningful results.
-2. Implement "traffic blocking" for the inner-cluster, and recheck results.
+* Run basho_bench from a Docker container, so you don't need Erlang locally.
