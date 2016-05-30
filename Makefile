@@ -5,6 +5,7 @@ DISTRO = jessie
 REL = riak-2.1.4-$(DISTRO)-$(ERLVER).tar.gz
 
 BENCH = basho_bench/basho_bench
+BENCH_CONFIG = riakc_pb.config
 
 .vagrant_up: $(REL)
 	vagrant up --provider=virtualbox
@@ -16,7 +17,7 @@ $(REL):
 
 bench: basho_bench/basho_bench
 	vagrant ssh -c "nohup /vagrant/firewall 120s 120s &"
-	$(BENCH) riakc_pb.conf
+	$(BENCH) $(BENCH_CONFIG)
 	$(MAKE) $(MAKEFLAGS) -C basho_bench results
 	@echo "Results generated. open basho_bench/tests/current/summary.png"
 

@@ -14,10 +14,11 @@ EOF
 ALLOWCMD=$(cat <<EOF
 *filter
 COMMIT
+EOF
 )
 
 set -x
 sleep ${1}s &&
-    echo "${DROPCMD}" | iptables-restore &&
+    echo "${DROPCMD}" | sudo ip netns exec netns3 iptables-restore &&
 sleep ${2}s &&
-    echo "${ALLOWCMD}" | iptables-restore
+    echo "${ALLOWCMD}" | sudo ip netns exec netns3 iptables-restore
