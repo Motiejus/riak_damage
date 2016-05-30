@@ -1,7 +1,7 @@
 Riak games
 ----------
 
-Breaking distributed riak on a single machine. Only Docker and Vagrant needed!
+Breaking distributed riak on a single machine. Results in `wiki`_.
 
 The Idea
 --------
@@ -56,9 +56,11 @@ the results, check out `documentation of basho_bench
 Results
 -------
 
-See `wiki <https://github.com/Motiejus/riak_damage/wiki/_new`_.
+See `wiki`_.
 
 Next Steps
 ----------
 
 * Run basho_bench from a Docker container, so you don't need Erlang locally.
+
+.. _wiki: https://github.com/Motiejus/riak_damage/wiki/_new
