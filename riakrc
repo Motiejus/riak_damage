@@ -25,11 +25,11 @@ add_netns() {
     brctl addif br0 veth${1}a
 }
 
-# Utility to execute a given command in a network namespace
+# Utility to execute a given command in a network namespace for vagrant user
 netx() {
     dst=$1
     shift
-    ip netns exec netns${dst} "$@"
+    ip netns exec netns${dst} su vagrant -c "$@"
 }
 
 # Forward incoming tcp port $2 to $1:$2
@@ -38,20 +38,28 @@ forward_port() {
 }
 
 start_riak() {
-    netx $1 su vagrant -c "riak${1}/bin/riak start"
+    netx $1 "riak${1}/bin/riak start"
 }
 
 # Join ${1}'th node to 1
 join_riak() {
-    netx ${1} su vagrant -c "riak${1}/bin/riak-admin cluster join riak@10.99.88.1"
+    netx $1 "riak${1}/bin/riak-admin cluster join riak@10.99.88.1"
 }
 
 cluster_commit() {
-    netx 1 su vagrant -c "riak1/bin/riak-admin cluster plan"
-    netx 1 su vagrant -c "riak1/bin/riak-admin cluster commit"
+    netx 1 "riak1/bin/riak-admin cluster plan"
+    netx 1 "riak1/bin/riak-admin cluster commit"
+}
+
+# set n_val for bucket named <<"test">> (default in basho_bench)
+prepare_bucket() {
+    netx 1 "riak1/bin/riak-admin bucket-type create test '{\"props\":{\"n_val\":2}}'"
+    netx 1 "riak1/bin/riak-admin bucket-type activate test"
 }
 
 set -x
+
+cd /home/vagrant
 
 init
 add_netns 1
@@ -68,3 +76,4 @@ join_riak 2
 join_riak 3
 
 cluster_commit
+prepare_bucket
