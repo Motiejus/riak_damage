@@ -1,8 +1,3 @@
-#!/bin/bash
-set -euo pipefail
-
-exec &> >(tee "/tmp/riakrc.log")
-
 # Add br0
 init() {
     brctl addbr br0
@@ -54,27 +49,6 @@ cluster_commit() {
 # set n_val for bucket named <<"test">> (default in basho_bench)
 prepare_bucket() {
     netx 1 "riak1/bin/riak-admin bucket-type create test \
-        '{\"props\":{\"n_val\":2, \"pr\": 1, \"w\": 1}}'"
+        '{\"props\":{\"n_val\":2, \"pr\": 1, \"w\": 1, \"dw\": 1}}'"
     netx 1 "riak1/bin/riak-admin bucket-type activate test"
 }
-
-set -x
-
-cd /home/vagrant
-
-init
-add_netns 1
-add_netns 2
-add_netns 3
-forward_port 10.99.88.1 8087
-forward_port 10.99.88.1 8098
-
-start_riak 1
-start_riak 2
-start_riak 3
-
-join_riak 2
-join_riak 3
-
-cluster_commit
-prepare_bucket

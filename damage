@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+
+. /vagrant/damage_lib.sh
+exec &> >(tee "/tmp/riakrc.log")
+
+set -x
+
+cd /home/vagrant
+
+init
+add_netns 1
+add_netns 2
+add_netns 3
+forward_port 10.99.88.1 8087
+forward_port 10.99.88.1 8098
+
+start_riak 1
+start_riak 2
+start_riak 3
+
+join_riak 2
+join_riak 3
+
+cluster_commit
+prepare_bucket

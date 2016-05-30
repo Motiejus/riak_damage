@@ -1,0 +1,5 @@
+/tests/
+/basho_bench/
+/riak-*.tar.gz
+/.vagrant/
+/.vagrant_up

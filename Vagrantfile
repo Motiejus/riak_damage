@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
     SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
-    sed -i '/this script does nothing/ s=.*=/vagrant/riakrc=' /etc/rc.local
+    sed -i '/this script does nothing/ s=.*=/vagrant/damage=' /etc/rc.local
     /etc/rc.local
   SHELL
 
