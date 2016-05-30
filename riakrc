@@ -65,7 +65,7 @@ init
 add_netns 1
 add_netns 2
 add_netns 3
-forward_port 10.99.88.1 8097
+forward_port 10.99.88.1 8087
 forward_port 10.99.88.1 8098
 
 start_riak 1

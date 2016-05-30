@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
       v.cpus = 2
   end
 
-  config.vm.network "forwarded_port", guest: 8097, host: 8097
+  config.vm.network "forwarded_port", guest: 8087, host: 8087
   config.vm.network "forwarded_port", guest: 8098, host: 8098
   config.vm.network "private_network", ip: "192.168.33.10"
 
