@@ -28,3 +28,5 @@ basho_bench:
 	git clone git://github.com/basho/basho_bench.git
 	rm -fr basho_bench/tests
 	ln -s ../tests basho_bench
+
+.PHONY: basho_bench
