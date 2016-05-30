@@ -43,7 +43,7 @@ start_riak() {
 
 # Join ${1}'th node to 1
 join_riak() {
-    netx 1 su vagrant -c "riak1/bin/riak-admin cluster join riak@10.99.88.${1}"
+    netx ${1} su vagrant -c "riak${1}/bin/riak-admin cluster join riak@10.99.88.1"
 }
 
 cluster_commit() {
@@ -65,6 +65,6 @@ start_riak 2
 start_riak 3
 
 join_riak 2
-#join_riak 3
+join_riak 3
 
 cluster_commit
