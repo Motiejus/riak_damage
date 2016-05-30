@@ -16,8 +16,6 @@ Plan for a 3-node cluster benchmark:
 2. Block node3 (``iptables -j DROP``) from the rest of the nodes.
 3. Expect no significant change in read/write throughput.
 
-Results TBD.
-
 Setting up the cluster
 ----------------------
 
@@ -54,6 +52,11 @@ Once you know the cluster works (by visiting the `admin interface
 You will be prompted to check out the results. If you have problems generating
 the results, check out `documentation of basho_bench
 <https://docs.basho.com/riak/kv/2.1.4/using/performance/benchmarking/>`_.
+
+Results
+-------
+
+See `wiki <https://github.com/Motiejus/riak_damage/wiki/_new`_.
 
 Next Steps
 ----------
