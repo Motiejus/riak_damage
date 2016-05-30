@@ -18,6 +18,7 @@ Vagrant.configure(2) do |config|
     chown -R vagrant riak
     sed -e '/^riak_control = / s/off/on/' \
         -e '/^listener.http.internal = / s/127.0.0.1/0.0.0.0/' \
+        -e '/^listener.protobuf.internal = / s/127.0.0.1/0.0.0.0/' \
         -i riak/etc/riak.conf
     for i in 1 2 3; do
         cp -a riak riak${i}
