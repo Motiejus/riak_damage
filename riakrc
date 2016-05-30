@@ -53,7 +53,8 @@ cluster_commit() {
 
 # set n_val for bucket named <<"test">> (default in basho_bench)
 prepare_bucket() {
-    netx 1 "riak1/bin/riak-admin bucket-type create test '{\"props\":{\"n_val\":2}}'"
+    netx 1 "riak1/bin/riak-admin bucket-type create test \
+        '{\"props\":{\"n_val\":2, \"pr\": 1, \"w\": 1}}'"
     netx 1 "riak1/bin/riak-admin bucket-type activate test"
 }
 
