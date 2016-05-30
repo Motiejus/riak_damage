@@ -63,4 +63,4 @@ Next Steps
 
 * Run basho_bench from a Docker container, so you don't need Erlang locally.
 
-.. _wiki: https://github.com/Motiejus/riak_damage/wiki/_new
+.. _wiki: https://github.com/Motiejus/riak_damage/wiki
