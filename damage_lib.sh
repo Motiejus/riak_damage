@@ -38,7 +38,15 @@ start_riak() {
 
 # Join ${1}'th node to 1
 join_riak() {
-    netx $1 "riak${1}/bin/riak-admin cluster join riak@10.99.88.1"
+    RES=`netx $1 "riak${1}/bin/riak-admin cluster join riak@10.99.88.1"`
+    if [[ $? != 0 ]]; then
+        if [[ $RES == *try\ again\ in\ a\ few\ moments* ]]; then
+            echo "Join failed with retryable error, retrying"
+            join_riak "$@"
+        else
+            printf "Join failed, stopping. Error: %s\n" "$RES"
+        fi
+    fi
 }
 
 join_riak_commit() {
