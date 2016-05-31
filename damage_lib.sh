@@ -41,7 +41,7 @@ join_riak() {
     netx $1 "riak${1}/bin/riak-admin cluster join riak@10.99.88.1"
 }
 
-cluster_commit() {
+join_riak_commit() {
     netx 1 "riak1/bin/riak-admin cluster plan"
     netx 1 "riak1/bin/riak-admin cluster commit"
 }
