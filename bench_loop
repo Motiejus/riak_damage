@@ -4,6 +4,7 @@ set -x
 
 for i in `seq 2 8`; do
     if [[ $i != 2 ]]; then
+        sleep 30s
         vagrant ssh -c ". /vagrant/damage_lib.sh && start_riak ${i} && join_riak ${i} && join_riak_commit"
         sleep 30s  # cluster migrates data, settles down
     fi

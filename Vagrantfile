@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
         -i riak/etc/riak.conf
 
     . /vagrant/damage_lib.sh
-    for i in 1 2 3; do
+    for i in 1 2 3 4 5 6 7 8; do
         stamp_riak $i
     done
     SHELL
