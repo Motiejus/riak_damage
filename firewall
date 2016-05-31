@@ -19,6 +19,6 @@ EOF
 
 set -x
 sleep ${1}s &&
-    echo "${DROPCMD}" | sudo ip netns exec netns3 iptables-restore &&
+    echo "${DROPCMD}" | sudo ip netns exec netns2 iptables-restore &&
 sleep ${2}s &&
-    echo "${ALLOWCMD}" | sudo ip netns exec netns3 iptables-restore
+    echo "${ALLOWCMD}" | sudo ip netns exec netns2 iptables-restore
