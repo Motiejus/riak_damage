@@ -60,3 +60,9 @@ prepare_bucket() {
         '{\"props\":{\"n_val\":2, \"pr\": 1, \"w\": 1, \"dw\": 1}}'"
     netx 1 "riak1/bin/riak-admin bucket-type activate test"
 }
+
+# Create $1'th riak release by copying the canonical copy
+stamp_riak() {
+    cp -a riak riak${i}
+    sed -i "/^nodename =/ s/127.0.0.1/10.99.88.${i}/" riak${i}/etc/riak.conf
+}

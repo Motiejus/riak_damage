@@ -15,15 +15,17 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get install -y vim bridge-utils tcpdump socat htop tmux jq
+
     tar -xzf /vagrant/riak-2.1.4-jessie-17.5.tar.gz
     chown -R vagrant riak
     sed -e '/^riak_control = / s/off/on/' \
         -e '/^listener.http.internal = / s/127.0.0.1/0.0.0.0/' \
         -e '/^listener.protobuf.internal = / s/127.0.0.1/0.0.0.0/' \
         -i riak/etc/riak.conf
+
+    . /vagrant/damage_lib.sh
     for i in 1 2 3; do
-        cp -a riak riak${i}
-        sed -i "/^nodename =/ s/127.0.0.1/10.99.88.${i}/" riak${i}/etc/riak.conf
+        stamp_riak $i
     done
     SHELL
 
