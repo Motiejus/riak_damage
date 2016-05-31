@@ -63,6 +63,6 @@ prepare_bucket() {
 
 # Create $1'th riak release by copying the canonical copy
 stamp_riak() {
-    cp -a riak riak${i}
-    sed -i "/^nodename =/ s/127.0.0.1/10.99.88.${i}/" riak${i}/etc/riak.conf
+    cp -a riak riak${1}
+    sed -i "/^nodename =/ s/127.0.0.1/10.99.88.${1}/" riak${1}/etc/riak.conf
 }
