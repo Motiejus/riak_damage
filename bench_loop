@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+set -x
+
+for i in `seq 2 8`; do
+    if [[ $i != 2 ]]; then
+        vagrant ssh -c ". /vagrant/damage_lib.sh && start_riak ${i} && join_riak ${i} && join_riak_commit"
+        sleep 30s  # cluster migrates data, settles down
+    fi
+
+    vagrant ssh -c "tmux new -d -s firewall 'sudo /vagrant/firewall 0 60'"
+
+    basho_bench/basho_bench -n n${i} riakc_pb.config
+    make -C basho_bench results
+
+done
