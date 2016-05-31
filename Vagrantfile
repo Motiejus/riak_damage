@@ -4,7 +4,7 @@ Vagrant.configure(2) do |config|
   config.vm.box = "debian/jessie64"
 
   config.vm.provider "virtualbox" do |v|
-      v.memory = 1024
+      v.memory = 2048
       v.cpus = 2
   end
 
@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
     SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
-    sed -i '/this script does nothing/ s=.*=/vagrant/damage=' /etc/rc.local
+    sed -i.bk '/this script does nothing/ s=.*=/vagrant/damage=' /etc/rc.local
     /etc/rc.local
   SHELL
 

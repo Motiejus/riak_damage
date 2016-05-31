@@ -12,15 +12,20 @@ init
 add_netns 1
 add_netns 2
 add_netns 3
+add_netns 4
+add_netns 5
+add_netns 6
+add_netns 7
+add_netns 8
 forward_port 10.99.88.1 8087
 forward_port 10.99.88.1 8098
 
 start_riak 1
 start_riak 2
-start_riak 3
+#start_riak 3
 
 join_riak 2
-join_riak 3
+#join_riak 3
 
 cluster_commit
 prepare_bucket
