@@ -24,7 +24,7 @@ add_netns() {
 netx() {
     dst=$1
     shift
-    ip netns exec netns${dst} su vagrant -c "$@"
+    sudo ip netns exec netns${dst} su vagrant -c "$@"
 }
 
 # Forward incoming tcp port $2 to $1:$2
@@ -40,7 +40,7 @@ start_riak() {
 join_riak() {
     RES=`netx $1 "riak${1}/bin/riak-admin cluster join riak@10.99.88.1"`
     if [[ $? != 0 ]]; then
-        if [[ $RES == *try\ again\ in\ a\ few\ moments* ]]; then
+        if [[ $RES == *Try\ again\ in\ a\ few\ moments* ]]; then
             echo "Join failed with retryable error, retrying"
             join_riak "$@"
         else
