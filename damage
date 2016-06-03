@@ -24,8 +24,12 @@ start_riak 1
 prepare_bucket
 
 start_riak 2
-#start_riak 3
+start_riak 3
+start_riak 4
+start_riak 5
 
 join_riak 2
-#join_riak 3
+join_riak 3
+join_riak 4
+join_riak 5
 join_riak_commit
