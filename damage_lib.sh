@@ -1,5 +1,7 @@
-# Add br0
+# Add br0, configure max open FDs
 init() {
+    echo 65536 | tee -a /proc/sys/fs/file-max
+    ulimit -n 65536
     brctl addbr br0
     ip addr add 10.99.88.254/24 dev br0
     ip link set br0 up
@@ -7,17 +9,17 @@ init() {
 
 # Bootstrap $1'th netns, add to br0. See https://lwn.net/Articles/580893/
 add_netns() {
-    ip netns add netns${1}
-    ip netns exec netns${1} ip link set dev lo up
+    sudo ip netns add netns${1}
+    sudo ip netns exec netns${1} ip link set dev lo up
 
-    ip link add veth${1}a type veth peer name veth${1}b
-    ip link set veth${1}a up
-    ip link set veth${1}b netns netns${1}
+    sudo ip link add veth${1}a type veth peer name veth${1}b
+    sudo ip link set veth${1}a up
+    sudo ip link set veth${1}b netns netns${1}
 
-    ip netns exec netns${1} ip addr add 10.99.88.${1}/24 dev veth${1}b
-    ip netns exec netns${1} ip link set veth${1}b up
+    sudo ip netns exec netns${1} ip addr add 10.99.88.${1}/24 dev veth${1}b
+    sudo ip netns exec netns${1} ip link set veth${1}b up
 
-    brctl addif br0 veth${1}a
+    sudo brctl addif br0 veth${1}a
 }
 
 # Utility to execute a given command in a network namespace for vagrant user
